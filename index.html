@@ -100,9 +100,36 @@
   </div>
 
   <script>
-    // 模拟扫码后返回的数据（可替换为动态URL参数解析）
+    // 模拟扫码后返回的数据
     const ticket = {
       title: "2025 音乐节入场券",
       channel: "官方售票平台",
       audience: "音乐爱好者 / 学生专享",
-      contact: "ticket@musicfest.com / 
+      contact: "ticket@musicfest.com / 123-456-7890",
+      isValid: true, // true=真票，false=假票
+      videoUrl: "https://example.com/video.mp4"
+    };
+
+    // 填充票务信息
+    document.getElementById("ticket-title").textContent = ticket.title;
+    document.getElementById("ticket-channel").textContent = "票务渠道：" + ticket.channel;
+    document.getElementById("ticket-audience").textContent = "面向群体：" + ticket.audience;
+    document.getElementById("ticket-contact").textContent = "联系方式：" + ticket.contact;
+
+    // 设置真假状态
+    const statusDiv = document.getElementById("ticket-status");
+    if (ticket.isValid) {
+      statusDiv.textContent = "此票为真票 ✅";
+      statusDiv.classList.add("valid");
+    } else {
+      statusDiv.textContent = "此票为假票 ❌";
+      statusDiv.classList.add("invalid");
+    }
+
+    // 按钮跳转到视频
+    document.getElementById("video-btn").addEventListener("click", function() {
+      window.location.href = ticket.videoUrl;
+    });
+  </script>
+</body>
+</html>
