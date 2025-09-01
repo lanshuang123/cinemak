@@ -91,15 +91,36 @@
       font-size: 14px;
       color: #555;
     }
-    .video-wrapper {
+    /* 全屏弹窗样式 */
+    .overlay {
       display: none; /* 初始隐藏 */
-      text-align: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
-    video {
-      width: 100%;
-      border-radius: 12px;
-      margin-top: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    .overlay video {
+      max-width: 100%;
+      max-height: 80%;
+      border-radius: 8px;
+    }
+    .close-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background: #ff4c4c;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .close-btn:hover {
+      background: #e60000;
     }
   </style>
 </head>
@@ -124,11 +145,12 @@
 
     <!-- 播放视频按钮 -->
     <button id="video-btn" class="btn">播放票务视频</button>
+  </div>
 
-    <!-- 视频播放器区域 -->
-    <div class="video-wrapper" id="video-wrapper">
-      <video id="ticket-video" controls></video>
-    </div>
+  <!-- 全屏视频弹窗 -->
+  <div id="video-overlay" class="overlay">
+    <video id="ticket-video" controls></video>
+    <button id="close-video" class="close-btn">关闭视频</button>
   </div>
 
   <script>
@@ -138,7 +160,7 @@
       channel: "官方售票平台",
       audience: "音乐爱好者 / 学生专享",
       contact: "ticket@musicfest.com / 123-456-7890",
-      isValid: true, // true=真票，false=假票
+      isValid: true,
       videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
       qrUrl: "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=FriendTicket-ABC123"
     };
@@ -162,13 +184,22 @@
     // 设置二维码
     document.getElementById("qr-code").src = ticket.qrUrl;
 
-    // 播放视频按钮事件
+    // 点击播放视频按钮 → 弹窗显示并播放
     document.getElementById("video-btn").addEventListener("click", function() {
-      const videoWrapper = document.getElementById("video-wrapper");
+      const overlay = document.getElementById("video-overlay");
       const video = document.getElementById("ticket-video");
       video.src = ticket.videoUrl;
-      videoWrapper.style.display = "block";
+      overlay.style.display = "flex";
       video.play();
+    });
+
+    // 点击关闭按钮 → 弹窗隐藏并停止播放
+    document.getElementById("close-video").addEventListener("click", function() {
+      const overlay = document.getElementById("video-overlay");
+      const video = document.getElementById("ticket-video");
+      video.pause();
+      video.currentTime = 0;
+      overlay.style.display = "none";
     });
   </script>
 </body>
