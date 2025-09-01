@@ -93,7 +93,7 @@
     }
     /* 全屏弹窗样式 */
     .overlay {
-      display: none; /* 初始隐藏 */
+      display: none;
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -126,24 +126,17 @@
 </head>
 <body>
   <div class="card">
-    <!-- 顶部票务信息 -->
     <div class="info">
       <h1 id="ticket-title"></h1>
       <p id="ticket-channel"></p>
       <p id="ticket-audience"></p>
       <p id="ticket-contact"></p>
     </div>
-
-    <!-- 中间真假状态 -->
     <div id="ticket-status" class="status"></div>
-
-    <!-- 好友二维码展示 -->
     <div class="qr-section">
       <img id="qr-code" src="" alt="好友票二维码">
       <div class="qr-label">好友票二维码</div>
     </div>
-
-    <!-- 播放视频按钮 -->
     <button id="video-btn" class="btn">播放票务视频</button>
   </div>
 
@@ -154,7 +147,6 @@
   </div>
 
   <script>
-    // 模拟扫码后返回的数据
     const ticket = {
       title: "2025 音乐节入场券",
       channel: "官方售票平台",
@@ -165,13 +157,11 @@
       qrUrl: "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=FriendTicket-ABC123"
     };
 
-    // 填充票务信息
     document.getElementById("ticket-title").textContent = ticket.title;
     document.getElementById("ticket-channel").textContent = "票务渠道：" + ticket.channel;
     document.getElementById("ticket-audience").textContent = "面向群体：" + ticket.audience;
     document.getElementById("ticket-contact").textContent = "联系方式：" + ticket.contact;
 
-    // 设置真假状态
     const statusDiv = document.getElementById("ticket-status");
     if (ticket.isValid) {
       statusDiv.textContent = "此票为真票 ✅";
@@ -181,25 +171,35 @@
       statusDiv.classList.add("invalid");
     }
 
-    // 设置二维码
     document.getElementById("qr-code").src = ticket.qrUrl;
 
-    // 点击播放视频按钮 → 弹窗显示并播放
-    document.getElementById("video-btn").addEventListener("click", function() {
-      const overlay = document.getElementById("video-overlay");
-      const video = document.getElementById("ticket-video");
+    const overlay = document.getElementById("video-overlay");
+    const video = document.getElementById("ticket-video");
+
+    document.getElementById("video-btn").addEventListener("click", async function() {
       video.src = ticket.videoUrl;
       overlay.style.display = "flex";
+      try {
+        if (overlay.requestFullscreen) {
+          await overlay.requestFullscreen();
+        } else if (overlay.webkitRequestFullscreen) {
+          await overlay.webkitRequestFullscreen();
+        } else if (overlay.msRequestFullscreen) {
+          await overlay.msRequestFullscreen();
+        }
+      } catch (e) {
+        console.log("Fullscreen not available:", e);
+      }
       video.play();
     });
 
-    // 点击关闭按钮 → 弹窗隐藏并停止播放
-    document.getElementById("close-video").addEventListener("click", function() {
-      const overlay = document.getElementById("video-overlay");
-      const video = document.getElementById("ticket-video");
+    document.getElementById("close-video").addEventListener("click", async function() {
       video.pause();
       video.currentTime = 0;
       overlay.style.display = "none";
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      }
     });
   </script>
 </body>
