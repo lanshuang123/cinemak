@@ -8,8 +8,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', 'PingFang SC', 'Helvetica Neue', sans-serif;
-      background: linear-gradient(135deg, #74ABE2, #5563DE);
-      color: #333;
+      background: linear-gradient(135deg, #5A5DE6, #43C6AC);
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -20,11 +19,11 @@
       background: #fff;
       max-width: 420px;
       width: 100%;
-      padding: 24px;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      padding: 28px 24px;
+      border-radius: 24px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.25);
       display: grid;
-      gap: 24px;
+      gap: 26px;
       animation: fadeIn 0.8s ease;
     }
     @keyframes fadeIn {
@@ -37,14 +36,14 @@
       color: #222;
     }
     .info p {
-      margin: 6px 0;
+      margin: 5px 0;
       color: #555;
       font-size: 15px;
     }
     .status {
       text-align: center;
-      padding: 20px;
-      border-radius: 16px;
+      padding: 18px;
+      border-radius: 18px;
       font-size: 18px;
       font-weight: bold;
       display: flex;
@@ -66,7 +65,7 @@
       text-align: center;
       font-size: 16px;
       font-weight: bold;
-      border-radius: 12px;
+      border-radius: 14px;
       color: #fff;
       background: linear-gradient(135deg, #4FACFE, #00F2FE);
       border: none;
@@ -75,10 +74,22 @@
     }
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
     }
-    .icon {
-      font-size: 20px;
+    .qr-section {
+      text-align: center;
+    }
+    .qr-section img {
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+      border: 4px solid #f0f0f0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .qr-label {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
     }
   </style>
 </head>
@@ -95,6 +106,12 @@
     <!-- 中间真假状态 -->
     <div id="ticket-status" class="status"></div>
 
+    <!-- 好友二维码展示 -->
+    <div class="qr-section">
+      <img id="qr-code" src="" alt="好友票二维码">
+      <div class="qr-label">好友票二维码</div>
+    </div>
+
     <!-- 底部播放视频按钮 -->
     <button id="video-btn" class="btn">播放票务视频</button>
   </div>
@@ -107,7 +124,9 @@
       audience: "音乐爱好者 / 学生专享",
       contact: "ticket@musicfest.com / 123-456-7890",
       isValid: true, // true=真票，false=假票
-      videoUrl: "https://example.com/video.mp4"
+      videoUrl: "https://example.com/video.mp4",
+      qrUrl: "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=FriendTicket-ABC123"
+      // qrUrl 可替换为自己的二维码图片链接或动态生成的二维码
     };
 
     // 填充票务信息
@@ -125,6 +144,9 @@
       statusDiv.textContent = "此票为假票 ❌";
       statusDiv.classList.add("invalid");
     }
+
+    // 设置二维码
+    document.getElementById("qr-code").src = ticket.qrUrl;
 
     // 按钮跳转到视频
     document.getElementById("video-btn").addEventListener("click", function() {
