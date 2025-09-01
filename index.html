@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>票务验证</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: grid;
+      gap: 20px;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0 0 10px 0;
+    }
+    p {
+      margin: 4px 0;
+      color: #555;
+    }
+    .status {
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 12px;
+    }
+    .status.valid {
+      background-color: #e6f7e6;
+      color: #2e8b57;
+    }
+    .status.invalid {
+      background-color: #ffe6e6;
+      color: #d93025;
+    }
+    .btn {
+      display: inline-block;
+      background: #007bff;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-align: center;
+      transition: background 0.3s;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 顶部票务信息 -->
+    <div>
+      <h1 id="ticket-title"></h1>
+      <p id="ticket-channel"></p>
+      <p id="ticket-audience"></p>
+      <p id="ticket-contact"></p>
+    </div>
+
+    <!-- 中间真假状态 -->
+    <div id="ticket-status" class="status"></div>
+
+    <!-- 底部播放视频按钮 -->
+    <div style="text-align: center;">
+      <button id="video-btn" class="btn">播放票务视频</button>
+    </div>
+  </div>
+
+  <script>
+    // 模拟扫码后返回的数据（实际可通过后端接口获取或二维码参数解析）
+    const ticket = {
+      title: "2025 音乐节入场券",
+      channel: "官方售票平台",
+      audience: "音乐爱好者 / 学生专享",
+      contact: "ticket@musicfest.com / 123-456-7890",
+      isValid: true, // true=真票，false=假票
+      videoUrl: "https://example.com/video.mp4"
+    };
+
+    // 填充票务信息
+    document.getElementById("ticket-title").textContent = ticket.title;
+    document.getElementById("ticket-channel").textContent = "票务渠道：" + ticket.channel;
+    document.getElementById("ticket-audience").textContent = "面向群体：" + ticket.audience;
+    document.getElementById("ticket-contact").textContent = "联系方式：" + ticket.contact;
+
+    // 设置真假状态
+    const statusDiv = document.getElementById("ticket-status");
+    if (ticket.isValid) {
+      statusDiv.textContent = "此票为真票 ✅";
+      statusDiv.classList.add("valid");
+    } else {
+      statusDiv.textContent = "此票为假票 ❌";
+      statusDiv.classList.add("invalid");
+    }
+
+    // 按钮跳转到视频
+    document.getElementById("video-btn").addEventListener("click", function() {
+      window.location.href = ticket.videoUrl;
+    });
+  </script>
+</body>
+</html>
