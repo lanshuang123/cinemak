@@ -8,7 +8,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', 'PingFang SC', 'Helvetica Neue', sans-serif;
-      background: linear-gradient(135deg, #5A5DE6, #43C6AC);
+      background: linear-gradient(135deg, #141E30, #243B55);
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -16,12 +16,13 @@
       padding: 20px;
     }
     .card {
-      background: #fff;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 30px 26px;
       max-width: 420px;
       width: 100%;
-      padding: 28px 24px;
-      border-radius: 24px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
       display: grid;
       gap: 26px;
       animation: fadeIn 0.8s ease;
@@ -31,33 +32,35 @@
       to {opacity: 1; transform: translateY(0);}
     }
     h1 {
-      font-size: 22px;
+      font-size: 24px;
       margin: 0;
-      color: #222;
+      color: #fff;
+      font-weight: 600;
     }
     .info p {
-      margin: 5px 0;
-      color: #555;
+      margin: 4px 0;
+      color: rgba(255,255,255,0.85);
       font-size: 15px;
     }
     .status {
       text-align: center;
-      padding: 18px;
-      border-radius: 18px;
+      padding: 16px;
+      border-radius: 14px;
       font-size: 18px;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      border: 1px solid rgba(255,255,255,0.25);
     }
     .status.valid {
-      background: linear-gradient(135deg, #DFFFD6, #A8E6A1);
-      color: #256029;
+      background: rgba(0, 255, 100, 0.15);
+      color: #00ff88;
     }
     .status.invalid {
-      background: linear-gradient(135deg, #FFD6D6, #FF9B9B);
-      color: #7A1A1A;
+      background: rgba(255, 0, 80, 0.15);
+      color: #ff4c6a;
     }
     .btn {
       width: 100%;
@@ -71,10 +74,11 @@
       border: none;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
     }
     .qr-section {
       text-align: center;
@@ -83,13 +87,13 @@
       width: 160px;
       height: 160px;
       border-radius: 12px;
-      border: 4px solid #f0f0f0;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border: 4px solid rgba(255,255,255,0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
     }
     .qr-label {
       margin-top: 10px;
       font-size: 14px;
-      color: #555;
+      color: rgba(255,255,255,0.9);
     }
   </style>
 </head>
@@ -106,18 +110,18 @@
       <img id="qr-code" src="" alt="好友票二维码">
       <div class="qr-label">好友票二维码</div>
     </div>
-    <button id="video-btn" class="btn">播放票务视频</button>
+    <button id="video-btn" class="btn">点我查看影院介绍</button>
   </div>
 
   <script>
     const ticket = {
-      title: "2025 音乐节入场券",
-      channel: "官方售票平台",
-      audience: "音乐爱好者 / 学生专享",
-      contact: "ticket@musicfest.com / 123-456-7890",
+      title: "20优惠券",
+      channel: "飓风特渠",
+      audience: "学生专享",
+      contact: "slsy1020",
       isValid: true,
       videoUrl: "https://lanshuang123.github.io/cinemak/1.mp4",
-      qrUrl: "https://lanshuang123.github.io/cinemak/wx.png"
+      qrUrl: "https://lanshuang123.github.io/cinemak/1.png"
     };
 
     document.getElementById("ticket-title").textContent = ticket.title;
@@ -137,7 +141,10 @@
     document.getElementById("qr-code").src = ticket.qrUrl;
 
     document.getElementById("video-btn").addEventListener("click", function() {
+      // 当前页面跳转
       window.location.href = ticket.videoUrl;
+      // 如果想新窗口打开，请改为：
+      // window.open(ticket.videoUrl, '_blank');
     });
   </script>
 </body>
