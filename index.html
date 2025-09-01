@@ -91,6 +91,16 @@
       font-size: 14px;
       color: #555;
     }
+    .video-wrapper {
+      display: none; /* 初始隐藏 */
+      text-align: center;
+    }
+    video {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
   </style>
 </head>
 <body>
@@ -112,8 +122,13 @@
       <div class="qr-label">好友票二维码</div>
     </div>
 
-    <!-- 底部播放视频按钮 -->
+    <!-- 播放视频按钮 -->
     <button id="video-btn" class="btn">播放票务视频</button>
+
+    <!-- 视频播放器区域 -->
+    <div class="video-wrapper" id="video-wrapper">
+      <video id="ticket-video" controls></video>
+    </div>
   </div>
 
   <script>
@@ -124,9 +139,8 @@
       audience: "音乐爱好者 / 学生专享",
       contact: "ticket@musicfest.com / 123-456-7890",
       isValid: true, // true=真票，false=假票
-      videoUrl: "https://example.com/video.mp4",
+      videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
       qrUrl: "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=FriendTicket-ABC123"
-      // qrUrl 可替换为自己的二维码图片链接或动态生成的二维码
     };
 
     // 填充票务信息
@@ -148,9 +162,13 @@
     // 设置二维码
     document.getElementById("qr-code").src = ticket.qrUrl;
 
-    // 按钮跳转到视频
+    // 播放视频按钮事件
     document.getElementById("video-btn").addEventListener("click", function() {
-      window.location.href = ticket.videoUrl;
+      const videoWrapper = document.getElementById("video-wrapper");
+      const video = document.getElementById("ticket-video");
+      video.src = ticket.videoUrl;
+      videoWrapper.style.display = "block";
+      video.play();
     });
   </script>
 </body>
