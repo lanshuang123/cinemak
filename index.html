@@ -109,11 +109,11 @@
     <!-- 好友二维码展示 -->
     <div class="qr-section">
       <img id="qr-code" src="" alt="好友票二维码">
-      <div class="qr-label">好友票二维码</div>
+      <div class="qr-label">此票本不向公司合作学校额外的地方发行，但是本人特申请到了优惠</div>
     </div>
 
     <!-- 底部播放视频按钮 -->
-    <button id="video-btn" class="btn">播放票务视频</button>
+    <button id="video-btn" class="btn">点我查看电影院长啥样</button>
   </div>
 
   <script>
@@ -122,7 +122,7 @@
       title: "中影特惠券",
       channel: "飓风内部渠道",
       audience: "学生专享",
-      contact: "此票本不向公司合作学校额外的地方发行，但是本人特申请到了优惠",
+      contact: "扫码加我微信",
       isValid: true, // true=真票，false=假票
       videoUrl: "https://xcimg.szwego.com/pvod/e5431f11/20250901/m1756736011112_3709.mp4",
       qrUrl: "https://lanshuang123.github.io/cinemak/1.png"
@@ -133,7 +133,7 @@
     document.getElementById("ticket-title").textContent = ticket.title;
     document.getElementById("ticket-channel").textContent = "票务渠道：" + ticket.channel;
     document.getElementById("ticket-audience").textContent = "面向群体：" + ticket.audience;
-    document.getElementById("ticket-contact").textContent = "介绍：" + ticket.contact;
+    document.getElementById("ticket-contact").textContent = "联系方式：" + ticket.contact;
 
     // 设置真假状态
     const statusDiv = document.getElementById("ticket-status");
