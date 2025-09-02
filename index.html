@@ -62,6 +62,95 @@
       background: rgba(255, 0, 80, 0.15);
       color: #ff4c6a;
     }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 14px;
+      color: #fff;
+      background: linear-gradient(135deg, #4FACFE, #00F2FE);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
+    .qr-section {
+      text-align: center;
+    }
+    .qr-section img {
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+      border: 4px solid rgba(255,255,255,0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    }
+    .qr-label {
+      margin-top: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="info">
+      <h1 id="ticket-title"></h1>
+      <p id="ticket-channel"></p>
+      <p id="ticket-audience"></p>
+      <p id="ticket-contact"></p>
+    </div>
+    <div id="ticket-status" class="status"></div>
+    <div class="qr-section">
+      <img id="qr-code" src="" alt="好友票二维码">
+      <div class="qr-label">好友票二维码</div>
+    </div>
+    <button id="video-btn" class="btn">播放票务视频</button>
+  </div>
+
+  <script>
+    const ticket = {
+      title: "2025 音乐节入场券",
+      channel: "官方售票平台",
+      audience: "音乐爱好者 / 学生专享",
+      contact: "ticket@musicfest.com / 123-456-7890",
+      isValid: true,
+      videoUrl: "https://lanshuang123.github.io/cinemak/2.mp4",
+      qrUrl: "https://lanshuang123.github.io/cinemak/1.png"
+    };
+
+    document.getElementById("ticket-title").textContent = ticket.title;
+    document.getElementById("ticket-channel").textContent = "票务渠道：" + ticket.channel;
+    document.getElementById("ticket-audience").textContent = "面向群体：" + ticket.audience;
+    document.getElementById("ticket-contact").textContent = "联系方式：" + ticket.contact;
+
+    const statusDiv = document.getElementById("ticket-status");
+    if (ticket.isValid) {
+      statusDiv.textContent = "此票为真票 ✅";
+      statusDiv.classList.add("valid");
+    } else {
+      statusDiv.textContent = "此票为假票 ❌";
+      statusDiv.classList.add("invalid");
+    }
+
+    document.getElementById("qr-code").src = ticket.qrUrl;
+
+    document.getElementById("video-btn").addEventListener("click", function() {
+      // 当前页面跳转
+      window.location.href = ticket.videoUrl;
+      // 如果想新窗口打开，请改为：
+      // window.open(ticket.videoUrl, '_blank');
+    });
+  </script>
+</body>
+</html>
+      color: #ff4c6a;
+    }
     /* 按钮改为不可点击 */
     .btn {
       width: 100%;
