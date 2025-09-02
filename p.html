@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H5 视频播放器</title>
+<style>
+    body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    video { width: 100%; max-width: 100%; height: auto; background: #000; }
+    .controls {
+        position: absolute;
+        bottom: 20px;
+        width: 90%;
+        left: 5%;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        font-size: 14px;
+    }
+    button {
+        background: rgba(0,0,0,0.6);
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        margin: 0 5px;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+
+<video id="videoPlayer" controls></video>
+<div class="controls">
+    <button id="playBtn">播放/暂停</button>
+    <button id="speedBtn">倍速</button>
+    <button id="fullBtn">全屏</button>
+</div>
+
+<script>
+    // 获取视频链接
+    function getVideoUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('video') || 'https://www.w3schools.com/html/mov_bbb.mp4'; // 默认视频
+    }
+
+    const video = document.getElementById('videoPlayer');
+    video.src = getVideoUrl();
+
+    // 控制按钮
+    const playBtn = document.getElementById('playBtn');
+    const speedBtn = document.getElementById('speedBtn');
+    const fullBtn = document.getElementById('fullBtn');
+
+    playBtn.addEventListener('click', () => {
+        if (video.paused) video.play();
+        else video.pause();
+    });
+
+    let speed = 1;
+    speedBtn.addEventListener('click', () => {
+        speed = speed === 1 ? 1.5 : (speed === 1.5 ? 2 : 1);
+        video.playbackRate = speed;
+        alert('当前倍速：' + speed + 'x');
+    });
+
+    fullBtn.addEventListener('click', () => {
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        } else if (video.webkitRequestFullscreen) {
+            video.webkitRequestFullscreen();
+        } else if (video.mozRequestFullScreen) {
+            video.mozRequestFullScreen();
+        }
+    });
+</script>
+
+</body>
+</html>
