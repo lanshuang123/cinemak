@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>票务验证</title>
+  <title>加好友</title>
   <style>
     body {
       margin: 0;
@@ -109,7 +109,7 @@
     <!-- 好友二维码展示 -->
     <div class="qr-section">
       <img id="qr-code" src="" alt="好友票二维码">
-      <div class="qr-label">此票本不向公司合作学校额外的地方发行，但是本人特申请到了优惠</div>
+   <!--    <div class="qr-label">此票本不向公司合作学校额外的地方发行，但是本人特申请到了优惠</div> -->
     </div>
 
     <!-- 底部播放视频按钮 -->
@@ -138,7 +138,7 @@
     // 设置真假状态
     const statusDiv = document.getElementById("ticket-status");
     if (ticket.isValid) {
-      statusDiv.textContent = "此票为真票 ✅";
+      statusDiv.textContent = "❗请在使用此券时撕掉张贴的贴纸❗";
       statusDiv.classList.add("valid");
     } else {
       statusDiv.textContent = "此票为假票 ❌";
